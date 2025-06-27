@@ -22,7 +22,7 @@ spec:
       - name: harshitha-container #-> Give your container name Ex: java-1
         image: IMAGE_PLACEHOLDER #-> Give your dockerhub image name basically with your username/app:1.0
         ports:
-        - containerPort: 80 #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
+        - containerPort: 5000 #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
         
 --- 
 apiVersion: v1
@@ -36,5 +36,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80 #-> keep the same port for service from pod port as well for best practice.
-      targetPort: 80  #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
+      targetPort: 5000  #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
   type: LoadBalancer # -> For cloud
