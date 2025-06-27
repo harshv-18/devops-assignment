@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds') 
-        DOCKER_IMAGE = "varunthantry/demo-app"
+        DOCKERHUB_CREDENTIALS = credentials('harshitha-dockerhub-creds') 
+        DOCKER_IMAGE = "harshitha/simple-flask-api"
         IMAGE_TAG = "${BUILD_NUMBER}"
-        NAMESPACE = "default"
+        NAMESPACE = "harshitha-ns"
     }
 
     stages {
 
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/varun-thantry/training.git',
+                git url: 'https://github.com/harshv-18/devops-assignment.git',
                     branch: 'main',
-                    credentialsId: 'github-creds'
+                    credentialsId: 'harshitha-github-creds'
             }
         }
 
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    sed 's|IMAGE_PLACEHOLDER|$DOCKER_IMAGE:$IMAGE_TAG|g' reactapp-deployment.yml > k8s-deployment-generated.yaml
+                    sed 's|IMAGE_PLACEHOLDER|$DOCKER_IMAGE:$IMAGE_TAG|g' deployment.yaml > k8s-deployment-generated.yaml
                     kubectl apply -f k8s-deployment-generated.yaml
                     kubectl get po -n $NAMESPACE
                     kubectl get svc -n $NAMESPACE
